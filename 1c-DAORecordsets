@@ -1,0 +1,71 @@
+Function fDAORecordsetDemo()
+'============================================================================
+' Name        : fDAORecordsetDemo
+' Author      : Erica L Ingram
+' Copyright   : 2019, A Quo Co.
+' Call command: Call fDAORecordsetDemo
+' Description : function description, special notes
+'               list here any required arguments 
+'============================================================================
+ 
+Dim rstCrtDts As DAO.Recordset, rstOLPP As DAO.Recordset
+Dim sShipDate As String, sTrackingNo As String
+ 
+ 
+Set rstCrtDts = CurrentDb.OpenRecordset("SELECT ID, ShipDate, TrackingNo FROM CourtDates")
+Set rstOLPP = CurrentDb.OpenRecordset("OLPP")
+ 
+ 
+If Not (rstCrtDts.EOF And rstCrtDts.BOF) Then 'For each CourtDates.ID
+ 
+    rstCrtDts.MoveFirst
+ 
+    Do Until rstCrtDts.EOF = True
+ 
+    rstCrtDts.Edit
+        rstCrtDts.Fields("ShipDate").Value = sShipDate
+        rstCrtDts.Fields("ID").Value = sCourtDatesID
+    rstCrtDts.Update
+ 
+    rstCrtDts.AddNew
+        rstCrtDts.Fields("ShipDate").Value = sShipDate
+        rstCrtDts.Fields("ID").Value = sCourtDatesID
+    rstCrtDts.Update
+ 
+ 
+        If Not (rstOLPP.EOF And rstOLPP.BOF) Then 'For each row in OLPP
+            rstOLPP.MoveFirst
+            Do Until rstOLPP.EOF = True
+            
+               Call pfCommunicationHistoryAdd("TrackingNumber") 'makes an entry in comms history table 
+               'get tracking number and ship date
+               'update courtdates shipdate and tracking number come back
+                rstOLPP.MoveNext
+ 
+            Loop
+ 
+                sShipDate = ""
+                sCourtDatesID = ""
+                sTrackingNo = ""
+ 
+                rstCrtDts.MoveNext
+ 
+        Else
+        End If
+         
+    Loop
+ 
+Else
+ 
+    MsgBox "There are no more packages to process."
+     
+End If
+ 
+MsgBox "Finished searching for tracking numbers."
+ 
+rstOLPP.Close
+Set rstOLPP = Nothing
+rstCrtDts.Close 'Close the recordset
+Set rstCrtDts = Nothing 'Clean up
+ 
+End Function
