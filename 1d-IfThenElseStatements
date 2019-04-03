@@ -1,1 +1,110 @@
+Function fFunction() 
+Dim x as Integer
+Dim y as Integer 
+x = 0
+y = 1
+If x &gt; y Then
+     Debug.Print "X is less than Y!"
+Elseif x = y Then
+     Debug.Print "X and Y are the same!"
+Else
+     Debug.Print "Y is less than X!"
+End If 
+End Function
 
+
+Function fFunction()
+If ActiveDocument.Saved = True Then
+     ActiveDocument.Saved = False
+Else
+     ActiveDocument.Saved = True
+End If
+End Function
+
+
+Function fIfNot()
+Dim x as integer
+If not x = 4 Then
+     'do things here
+End If
+End Function
+
+
+Function fIfAndOr()
+Dim x as integer
+Dim y as integer
+If x + 1 &gt; 4 and y &gt; 5 Then
+     'do things here
+Elseif x + y &lt; 5 or x - y &lt; 5 Then 
+     'do things here
+End If
+End Function
+
+
+Function fFunction()
+Dim x as integer
+x = 3
+If x = 3 Then Debug.Print "X is not a million!"
+End Function
+
+
+Function fCaseSelect() 
+Dim vX As Variant
+Dim sX As String
+vX = InputBox("How many chocolates do you have?")
+Select Case vX
+Case " "
+     End
+Case Is &lt; 0, 0, 1 To 2
+     sX = "You have so few pieces of candy."
+Case 2 To 3
+     sX = "Have a moment to yourself."
+Case 3 To 4
+     sX = "Man, are you having a good day or what?"
+Case 4 To 6
+     sX = "Maybe you can trade up!"
+Case 6 To 10
+     sX = "Hope you're sharing!"
+Case Is &gt; 10
+     sX = "Wow, is it Halloween?"
+End Select
+Debug.Print sX
+End Function
+
+
+Public Function pfSelectCoverTemplate()
+'============================================================================
+' Name        : pfSelectCoverTemplate
+' Author      : Erica L Ingram
+' Copyright   : 2019, A Quo Co.
+' Call command: Call pfSelectCoverTemplate
+' Description : parent function to create correct transcript cover/skeleton from template
+'============================================================================
+
+Dim sFDAQuery As String
+
+Call pfCheckFolderExistence 'checks for job folder and creates it if not exists
+sFDAQuery = "Food" &amp; "*" &amp; "and" &amp; "*" &amp; "Drug" &amp; "*" &amp; "Administration"
+Call pfCurrentCaseInfo  'refresh transcript info
+
+If ((sJurisdiction) Like ("*" &amp; sFDAQuery &amp; "*")) Then
+    pfCreateCover ("Stage2s\TR-Company4-FDA.doc")
+ElseIf sJurisdiction = "Company2 USBC" Then pfCreateCover ("Stage2s\TR-Company2-Bankruptcy.dotm")
+ElseIf sJurisdiction = "Company1 Oregon" Then pfCreateCover ("Stage2s\TR-Company1Oregon-Template.dotm")
+ElseIf sJurisdiction = "Company1 Nevada" Then pfCreateCover ("Stage2s\TR-Company1Nevada-Template.dotm")
+ElseIf sJurisdiction = "Company1 Bankruptcy" Then pfCreateCover ("Stage2s\TR-Company1Bankruptcy-Template.dotm")
+ElseIf sJurisdiction = "Non-Court" Then pfCreateCover ("Stage2s\TR-noncourt.docx")
+ElseIf sJurisdiction Like "District" &amp; " " &amp; "of" &amp; " " Then pfCreateCover ("Stage2s\TR-Bankruptcy.dotm")
+ElseIf sJurisdiction = "Company3 BK" Then pfCreateCover ("Stage2s\TR-Company3-Bankruptcy.docx")
+ElseIf sJurisdiction = "Company3 NJ" Then pfCreateCover ("Stage2s\TR-Company3-NJ.docx")
+ElseIf sJurisdiction = "Company2 NH" Then pfCreateCover ("Stage2s\TR-Company2-NH.dotm")
+ElseIf sJurisdiction = "Company2 OC" Then pfCreateCover ("Stage2s\TR-Company2-OC-CA.dotm")
+ElseIf sJurisdiction = "Company2 NH" &amp; "*" Then pfCreateCover ("Stage2s\TR-Company2-NH.dotm")
+ElseIf sJurisdiction = "Company2 NH" Then pfCreateCover ("Stage2s\TR-Company2-NH.dotm") '1.3.2
+ElseIf sJurisdiction Like "Massachusetts" Then pfCreateCover ("Stage2s\TR-Mass.dotm")
+Else: pfCreateCover ("Stage2s\TR-WACounties.dotm")
+End If
+
+Call pfCommunicationHistoryAdd("CourtCover")
+Call pfClearGlobals
+End Function
