@@ -4,6 +4,7 @@ This is all code discussed in the blog, sorted by lesson name.
 Next up is 1d, covering if-then-else statements.
 
 Basics:
+
     Part 1a: Variables (https://transcription.aquoco.co/2019/03/30/variables/)
     
     Part 1b: Operators/Math (https://transcription.aquoco.co/2019/03/31/operators-math/)
