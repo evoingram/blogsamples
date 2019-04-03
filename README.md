@@ -11,7 +11,7 @@ Basics:
     
     Part 1c: DAO Recordsets (https://transcription.aquoco.co/2019/04/02/dao-recordsets/)
     
-    Part 1d: If/Then/Else Statements
+    Part 1d: If/Then/Else Statements (https://transcription.aquoco.co/2019/04/03/if-then-else/)
     
     Part 1e: Loops
     
