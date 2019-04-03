@@ -1,0 +1,48 @@
+Function fFunction()
+dim x as integer
+x = 3
+If x < 4 and x >= 0 Then
+     Debug.Print x
+Elseif x > 5 Then
+     Debug.Print "x is too big!"
+Else
+End if
+End Function
+
+
+Function fFunction()
+'declare variables
+dim sValue1 as string
+dim sValue2 as string
+'assign value to them
+sValue1 = "Hello "
+sValue2 = "World"
+'use of logical operators:
+If sValue1 = "Hello " and sValue2 = "World" Then
+     Debug.Print sValue1 & sValue2
+Elseif sValue1 = "Hello " or sValue2 = "World" Then
+     Debug.Print sValue1 & sValue2
+Else
+     Debug.Print sValue1 & "!"
+End If
+If not sValue1 = "Hello" Then
+    Debug.Print "I didn't say hello.  I said, " &  _
+         sValue1 & "!"
+End Function
+
+
+Function fFunction()
+'declare variables
+dim sValue1 as string
+dim sValue2 as string
+dim sValue3 as string
+'assign value to them
+sValue1 = "Hello"
+sValue2 = "World"
+sValue3 = sValue1 & Chr(32) & sValue2  _
+     & Chr(33)
+     'hit Ctrl+G to see debug window.  
+     'Prints in debug window 
+          '"Hello World!" without the quotes.
+Debug.Print sValue3
+End Function
