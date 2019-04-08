@@ -1,7 +1,7 @@
 # blogsamples
 This is all code discussed in the blog, sorted by lesson name.
 
-Next up is 1d, covering if-then-else statements.
+Next up is winhttprequest.
 
 Basics:
 
@@ -22,81 +22,97 @@ Basics:
     Part 4: MySQL Syntax and Resources
     
     
-Shorthand Series:
+Using VBA/Office With Internet:
 
-    Part 5a: Shorthand Part 1 of 3
-    
-    Part 5b: Shorthand Part 2 of 3
-    
-    Part 5c: Shorthand Part 3 of 3
-    
-    
-Working with Advanced Word Options:
+     Using winhttprequest
+     Using VBA with JSON
+         PayPal
+         QuickBooks
+         Clio
+         PracticePanther
+         FileVine
+         SharePoint 
+         Wunderlist
 
-    Part 6a: Working with Building Blocks in Word
-    
-    Part 6b: Working with Authorities in Word
-    
-    Part 6c: Working with Mail Merges in Word
-    
-    
-Working with VBA and Word:
+ Working with VBA and Word
 
-    Part 6d: Word Indexes
-	
-    Part 6e: Auto-Hyperlinking in Word
-	
-    Part 6f: Automate Generating Autocorrect Entries
-	
-    Part 6g: Automate Header/Footer Generation in Word
-	
-    Part 6h: How to Manually Construct Tables of Content and Authority
-	
-    Part 6i: Automatically Generate Tables of Content
-	
-    Part 6j: Automatically Generate Tables of Authority
-	
-    Part 6k: Automatically generate Word documents via mail merge
-	
-    
-	
-Outlook:
+     References
+     Macro Recorder
+     VBA Find and Replace
+     Templates & Mail Merges
+         Manual
+         Automatic
+     Styles
+        Manual
+        Automatic
+    AutoCorrect entries in Word
+         Shorthand
+         Manual
+         Automatic
+     Building Blocks
+        Manual
+        Automatic
+     Automate Header/Footer Generation in Word
+     Word Indexes
+     Manually Working with Authorities in Word
+     Auto-Hyperlinking in Word 
+     Tables of Content
+         Manual
+        Automatic 
+     Tables of Authority
+         Manual
+        Automatic 
+      Encryption
+     Manually Clearing Meta Data in Word
+     PDF:  2-up, 4-up, options
 
-    Part 7a: Auto-Generate Outlook Tasks/Appointments
-	
-    Part 7b: Automate E-Mail Generation, Sending, and Receiving
-	
-    Part 7c: Monitoring Outlook folders from Microsoft Access
-	
-    
-Access:
+ OneNote 
 
-    Part 8a: Automated Availability Calculator in Access
-	
-    Part 8b: Automated Rate Calculator in Access (also automatically send a price quote/price estimate e-mail!)
-	
-    Part 8c: Automatically Generating Wunderlist Tasks and Lists
-	
-    Part 8d: Automating Scanning or Printing
-	
-    Part 8e: Build Your Own Invoicing System
-	
-    Part 8f: PayPal and JSON
-	
-    Part 8g: Tracking Document History for a Case
-	
-    Part 8h: Creating a Search Function in Access
-	
-    
-OneNote:
+    Automatically Generate Notebooks
+     Automatically Generate Section Groups
+     Automatically Generate Sections
+     Automatically Generate Pages
+     Return Lists of Notebooks, Section Groups, Sections, and Pages 
 
-    Part 9a: Automatically Generate OneNote Notebooks
-	
-    Part 9b: Automatically Generate OneNote Section Groups
-	
-    Part 9c: Automatically Generate OneNote Sections
-	
-    Part 9d: Automatically Generate OneNote Pages
-	
-    Part 9e: Return Lists of OneNote Notebooks, Section Groups, Sections, and Pages
+ Outlook
+
+     Auto-Generate Outlook Tasks/Appointments
+     Automate E-Mail Generation, Sending, and Receiving
+     Using Website Forms with Outlook
+     Monitoring Outlook folders from Microsoft Access 
+         trigger from certain word in subject
+         use email for printing
+
+ PowerPoint
+
+     TBD
+
+ MySQL
+
+     Database Structure
+     Tables, Records, Rows, Queries, Recordsets
+     SELECT queries
+     UPDATE queries
+     MySQL Resources
+
+ Access
+
+     Automated Availability Calculator in Access
+     Automated Rate Calculator in Access 
+     also automatically send a price quote/price estimate e-mail!
+     Automating Scanning or Printing
+     Build Your Own Invoicing System
+     Tracking Document History for a Case
+     Creating a Search Function in Access 
+     Automated time tracker in Access 
+     Automated reports in Access 
+     Reading XML/Endicia DAZzle
+
+ File Management
+
+     Putting All the Pieces Together 
+     Automate Client Intake
+     Schedule Backups
+     Cortana commands with batch files
+         passing arguments through shortcuts to batch files 
 	
