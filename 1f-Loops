@@ -1,0 +1,103 @@
+
+Function fFunction()  
+'============================================================================
+' Name        : fFunction
+' Author      : Erica L Ingram
+' Call command: Call fFunction
+' Description : for next loop
+'============================================================================
+Dim x as Integer
+For x = 3 To 0 Step -1
+    Debug.Print "X = " & x
+DoEvents
+Next x
+End Function
+	
+  
+Function fFunction() 
+'============================================================================
+' Name        : fFunction
+' Author      : Erica L Ingram
+' Call command: Call fFunction
+' Description : for each next loop
+'============================================================================
+Dim item As Variant
+Dim sFileTypes() As String
+sFileTypes = Array("trs", "trm")                
+For Each item In sFileTypes
+   If fiCurrentFile Like "*trs*" Then GoTo Line2
+   ElseIf fiCurrentFile Like "*trm*" Then GoTo Line2
+   Else
+      Debug.Print "This is not an FTR player file!"
+Next
+Line2: 'label, always followed with a colon
+Debug.Print "Done with FileTypes!"
+End Function
+
+Function fFunction() 
+'============================================================================
+' Name        : fFunction
+' Author      : Erica L Ingram
+' Call command: Call fFunction
+' Description : do while loop
+'============================================================================
+Dim x As Integer
+x = 5
+Do While x > 0
+    Debug.Print "X = " & x
+    If x = 1 Then Exit Do
+    x = x - 1
+DoEvents
+Loop
+End Function
+	
+Function fFunction() 
+'============================================================================
+' Name        : fFunction
+' Author      : Erica L Ingram
+' Call command: Call fFunction
+' Description : do loop while
+'============================================================================
+Dim x as Integer
+x = 5
+Do
+    Debug.Print "X = " & x
+    x = x - 1
+    If x = 1 Then Exit Do
+DoEvents
+Loop While x > 0
+End Function
+
+Function fFunction() 
+'============================================================================
+' Name        : fFunction
+' Author      : Erica L Ingram
+' Call command: Call fFunction
+' Description : do until loop
+'============================================================================
+Dim x as Integer
+x = 5
+Do Until x = 1
+    Debug.Print "X = " & x
+    x = x - 1
+    If x = 1 Then Exit Do
+DoEvents
+Loop
+End Function
+
+Function fFunction() 
+'============================================================================
+' Name        : fFunction
+' Author      : Erica L Ingram
+' Call command: Call fFunction
+' Description : do loop until
+'============================================================================
+Dim x as Integer
+x = 5
+Do
+    Debug.Print "X = " & x
+    x = x - 1
+    If x = 1 Then Exit Do
+DoEvents
+Loop Until x = 1
+End Function
