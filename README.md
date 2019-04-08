@@ -79,7 +79,7 @@ Using VBA/Office With Internet:
  MySQL
 
      Database Structure
-     Tables, Records, Rows, Queries, Recordsets
+     	Tables, Records, Rows, Queries, Recordsets
      SELECT queries
      UPDATE queries
      MySQL Resources
@@ -88,7 +88,7 @@ Using VBA/Office With Internet:
 
      Automated Availability Calculator in Access
      Automated Rate Calculator in Access 
-     also automatically send a price quote/price estimate e-mail!
+     	also automatically send a price quote/price estimate e-mail!
      Automating Scanning or Printing
      Build Your Own Invoicing System
      Tracking Document History for a Case
