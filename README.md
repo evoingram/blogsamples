@@ -68,7 +68,7 @@ Using VBA/Office With Internet:
 
  OneNote 
 
-    Automatically Generate Notebooks
+     Automatically Generate Notebooks
      Automatically Generate Section Groups
      Automatically Generate Sections
      Automatically Generate Pages
