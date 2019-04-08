@@ -13,7 +13,7 @@ Basics:
     
     Part 1d: If/Then/Else Statements (https://transcription.aquoco.co/2019/04/03/if-then-else/)
     
-    Part 1e: Loops
+    Part 1e: Loops (https://transcription.aquoco.co/2019/04/07/loops/)
     
     Part 2: Using winhttprequest
     
