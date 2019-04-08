@@ -13,7 +13,7 @@ Basics:
     If/Then/Else Statements (https://transcription.aquoco.co/2019/04/03/if-then-else/)    
     Loops (https://transcription.aquoco.co/2019/04/07/loops/)
     
-Using VBA/Office With Internet:
+Using VBA/Office With internet:
 
      Using winhttprequest
      Using VBA with JSON
@@ -25,7 +25,7 @@ Using VBA/Office With Internet:
          SharePoint 
          Wunderlist
 
- Working with VBA and Word
+ Working with VBA and Word:
 
      References
      Macro Recorder
@@ -57,7 +57,7 @@ Using VBA/Office With Internet:
      Manually Clearing Meta Data in Word
      PDF:  2-up, 4-up, options
 
- OneNote 
+ OneNote:
 
      Automatically Generate Notebooks
      Automatically Generate Section Groups
@@ -65,7 +65,7 @@ Using VBA/Office With Internet:
      Automatically Generate Pages
      Return Lists of Notebooks, Section Groups, Sections, and Pages 
 
- Outlook
+ Outlook:
 
      Auto-Generate Outlook Tasks/Appointments
      Automate E-Mail Generation, Sending, and Receiving
@@ -74,11 +74,11 @@ Using VBA/Office With Internet:
          trigger from certain word in subject
          use email for printing
 
- PowerPoint
+ PowerPoint:
 
      TBD
 
- MySQL
+ MySQL:
 
      Database Structure
      	Tables, Records, Rows, Queries, Recordsets
@@ -86,7 +86,7 @@ Using VBA/Office With Internet:
      UPDATE queries
      MySQL Resources
 
- Access
+ Access:
 
      Automated Availability Calculator in Access
      Automated Rate Calculator in Access 
@@ -99,7 +99,7 @@ Using VBA/Office With Internet:
      Automated reports in Access 
      Reading XML/Endicia DAZzle
 
- File Management
+ File Management:
 
      Putting All the Pieces Together 
      Automate Client Intake
