@@ -5,22 +5,11 @@ Next up is winhttprequest.
 
 Basics:
 
-    Part 1a: Variables (https://transcription.aquoco.co/2019/03/30/variables/)
-    
-    Part 1b: Operators/Math (https://transcription.aquoco.co/2019/03/31/operators-math/)
-    
-    Part 1c: DAO Recordsets (https://transcription.aquoco.co/2019/04/02/dao-recordsets/)
-    
-    Part 1d: If/Then/Else Statements (https://transcription.aquoco.co/2019/04/03/if-then-else/)
-    
-    Part 1e: Loops (https://transcription.aquoco.co/2019/04/07/loops/)
-    
-    Part 2: Using winhttprequest
-    
-    Part 3: Using VBA with JSON
-    
-    Part 4: MySQL Syntax and Resources
-    
+    Variables (https://transcription.aquoco.co/2019/03/30/variables/)    
+    Operators/Math (https://transcription.aquoco.co/2019/03/31/operators-math/)    
+    DAO Recordsets (https://transcription.aquoco.co/2019/04/02/dao-recordsets/)    
+    If/Then/Else Statements (https://transcription.aquoco.co/2019/04/03/if-then-else/)    
+    Loops (https://transcription.aquoco.co/2019/04/07/loops/)
     
 Using VBA/Office With Internet:
 
