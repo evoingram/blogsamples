@@ -5,6 +5,8 @@ Next up is winhttprequest.
 
 Basics:
 
+    Code Formatting Tips (https://transcription.aquoco.co/2019/04/02/code-formatting-tips/)
+    Organizing Workflow, Code, and Document Production (https://transcription.aquoco.co/2019/04/04/organize/)
     Variables (https://transcription.aquoco.co/2019/03/30/variables/)    
     Operators/Math (https://transcription.aquoco.co/2019/03/31/operators-math/)    
     DAO Recordsets (https://transcription.aquoco.co/2019/04/02/dao-recordsets/)    
