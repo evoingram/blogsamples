@@ -20,7 +20,6 @@ Using VBA/Office with internet:
          PayPal
          QuickBooks
          Clio
-         PracticePanther
          FileVine
          SharePoint 
          Wunderlist
