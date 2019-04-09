@@ -15,6 +15,7 @@ Basics:
     
 Using VBA/Office with internet:
 
+     References
      Using winhttprequest
      Using VBA with JSON
          PayPal
@@ -26,7 +27,6 @@ Using VBA/Office with internet:
 
  Working with VBA and Word:
 
-     References
      Macro Recorder
      VBA Find and Replace
      Templates & Mail Merges
