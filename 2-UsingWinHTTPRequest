@@ -5,6 +5,7 @@ Function fCourtListener()
 ' Copyright   : 2019, A Quo Co.
 ' Call command: Call fCourtListener()
 ' Description : gets URLs and search listings from CourtListener (case law/authority)
+'access db sample with code + vba dictionary + vba jsonconverter at https://www.aquoco.co/Database1.zip
 '============================================================================
 Dim sAbsoluteURL As String, sURL As String, apiWaxLRS As String
 Dim sCaseName As String, sInputState As String, sToken As String
