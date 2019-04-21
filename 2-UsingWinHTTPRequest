@@ -1,0 +1,235 @@
+Function fCourtListener()
+'============================================================================
+' Name        : fCourtListener
+' Author      : Erica L Ingram
+' Copyright   : 2019, A Quo Co.
+' Call command: Call fCourtListener()
+' Description : gets URLs and search listings from CourtListener (case law/authority)
+'============================================================================
+Dim sAbsoluteURL As String, sURL As String, apiWaxLRS As String
+Dim sCaseName As String, sInputState As String, sToken As String
+Dim sInput1 As String, sInput2 As String, sInputCourt As String
+Dim sCourt As String
+Dim rep, resp, sCitation, oEntry
+Dim sID As Object, oCitations As Object
+Dim oRequest As Object, vDetails As Object
+Dim x As Integer, y As Integer
+Dim Parsed As Dictionary
+ 
+'Go get a token and then come back.
+'sign up at https://www.courtlistener.com/api/
+ 
+sFile1 = "C:\other\10.txt"
+'get token into variable
+Open sFile1 For Input As #1
+Line Input #1, sToken
+Close #1
+ 
+'search term 1
+sInput1 = _
+    InputBox("Enter a word or phrase to search for on CourtListener.")
+'search term 2
+sInput2 = InputBox _
+    ("Enter another word or phrase to search for on CourtListener.")
+ 
+'enter name of state here or 'federal' or 'special'
+sInputState = InputBox("Enter state name, 'federal', or 'special' here.")
+If sInputState = "Alabama" Then
+    sInputCourt = "almd+alnd+alsd+almb+alnb+alsb+ala+alactapp" & _
+        "+alacrimapp+alacivapp"
+ElseIf sInputState = "Alaska" Then
+     sInputCourt = "akd+akb+alaska+alaskactapp"
+ElseIf sInputState = "Arizona" Then
+     sInputCourt = "azd+arb+ariz+arizctapp+ariztaxct"
+ElseIf sInputState = "Arkansas" Then
+     sInputCourt = "ared+arwd+areb+arwb+ark+arkctapp+arkworkcompcom+arkag"
+ElseIf sInputState = "California" Then
+     sInputCourt = "cacd+caed+cand+casd+californiad+caca+cacb+caeb+" & _
+        "canb+casb+cal+calctapp+calappdeptsuper+calag"
+ElseIf sInputState = "Colorado" Then
+     sInputCourt = "cod+cob+colo+coloctapp+coloworkcompcom+coloag"
+ElseIf sInputState = "Connecticut" Then
+     sInputCourt = "ctd+ctb+conn+connappct+connsuperct+connworkcompcom"
+ElseIf sInputState = "Delaware" Then
+     sInputCourt = "ded+circtdel+deb+del+delch+delsuperct+delctcompl" & _
+        "+delfamct+deljudct"
+ElseIf sInputState = "Florida" Then
+     sInputCourt = "flmd+flnd+flsd+flmb+flnb+flsb+fla+fladistctapp+flaag"
+ElseIf sInputState = "Georgia" Then
+     sInputCourt = "gamd+gand+gasd+gamb+ganb+gasb+ga+gactapp"
+ElseIf sInputState = "Hawaii" Then
+     sInputCourt = "hid+hib+haw+hawapp"
+ElseIf sInputState = "Idaho" Then
+     sInputCourt = "idd+idb+idaho+idahoctapp"
+ElseIf sInputState = "Illinois" Then
+     sInputCourt = "ilcd+ilnd+ilsd+illinoised+illinoisd+ilcb+ilnb" & _
+        "+ilsb+ill+illappct"
+ElseIf sInputState = "Indiana" Then
+     sInputCourt = "innd+insd+indianad+innb+insb+ind+indctapp+indtc"
+ElseIf sInputState = "Iowa" Then
+     sInputCourt = "iand+iasd+ianb+iasb+iowa+iowactapp"
+ElseIf sInputState = "Kansas" Then
+     sInputCourt = "ksd+ksb+kan+kanctapp+kanag"
+ElseIf sInputState = "Kentucky" Then
+     sInputCourt = "kyed+kywd+kyeb+kywb+ky+kyctapp+kyctapphigh"
+ElseIf sInputState = "Louisiana" Then
+     sInputCourt = "laed+lamd+lawd+laeb+lamb+lawb+la+lactapp+laag"
+ElseIf sInputState = "Maine" Then
+     sInputCourt = "med+bapme+meb+me"
+ElseIf sInputState = "Maryland" Then
+     sInputCourt = "mdd+mdb+md+mdctspecapp+mdag"
+ElseIf sInputState = "Massachusetts" Then
+     sInputCourt = "mad+bapma+mab+mass+massappct+masssuperct" & _
+        "+massdistct+maworkcompcom"
+ElseIf sInputState = "Michigan" Then
+     sInputCourt = "mied+miwd+mieb+miwb+mich+michctapp"
+ElseIf sInputState = "Minnesota" Then
+     sInputCourt = "mnd+mnb+minn+minnctapp+minnag"
+ElseIf sInputState = "Mississippi" Then
+     sInputCourt = "msnd+mssd+msnb+mssb+miss+missctapp"
+ElseIf sInputState = "Missouri" Then
+     sInputCourt = "moed+mowd+moeb+mowb+mo+moctapp+moag"
+ElseIf sInputState = "Montana" Then
+     sInputCourt = "mtd+mtb+mont+monttc+montag"
+ElseIf sInputState = "Nebraska" Then
+     sInputCourt = "ned+nebraskab+neb+nebctapp+nebag"
+ElseIf sInputState = "Nevada" Then
+     sInputCourt = "nvd+nvb+nev"
+ElseIf sInputState = "New Hampshire" Then
+     sInputCourt = "nhd+nhb+nh"
+ElseIf sInputState = "New Jersey" Then
+     sInputCourt = "njd+njb+nj+njsuperctappdiv+njtaxct+njch"
+ElseIf sInputState = "New Mexico" Then
+     sInputCourt = "nmd+nmb+nm+nmctapp"
+ElseIf sInputState = "New York" Then
+     sInputCourt = "nyed+nynd+nysd+nywd+nyeb+nynb+nysb+nywb+ny" & _
+        "+nyappdiv+nyappterm+nysupct+nyfamct+nysurct+nycivct+nycrimct+nyag"
+ElseIf sInputState = "North Carolina" Then
+     sInputCourt = "nced+ncmd+ncwd+circtnc+nceb+ncmb+ncwb+nc" & _
+        "+ncctapp+ncsuperct+ncworkcompcom"
+ElseIf sInputState = "North Dakota" Then
+     sInputCourt = "ndd+ndb+nd+ndctapp"
+ElseIf sInputState = "Ohio" Then
+     sInputCourt = "ohnd+ohsd+ohiod+ohnb+ohsb+ohio+ohioctapp+ohioctcl"
+ElseIf sInputState = "Oklahoma" Then
+     sInputCourt = "oked+oknd+okwd+okeb+oknb+okwb+okla" & _
+        "+oklacivapp+oklacrimapp+oklajeap+oklacoj+oklaag"
+ElseIf sInputState = "Oregon" Then
+     sInputCourt = "ord+orb+or+orctapp+ortc"
+ElseIf sInputState = "Pennsylvania" Then
+     sInputCourt = "paed+pamd+pawd+pennsylvaniad+paeb+pamb+" & _
+        "pawb+pa+pasuperct+pacommwct+cjdpa+stp"
+ElseIf sInputState = "Rhode Island" Then
+     sInputCourt = "rid+rib+ri+risuperct"
+ElseIf sInputState = "South Carolina" Then
+     sInputCourt = "scd+southcarolinaed+southcarolinawd+scb+sc+scctapp"
+ElseIf sInputState = "South Dakota" Then
+     sInputCourt = "sdd+sdb+sd"
+ElseIf sInputState = "Tennessee" Then
+     sInputCourt = "tned+tnmd+tnwd+tennessed+circttenn+tneb+tnmb" & _
+        "+tnwb+tennesseeb+tenn+tennctapp+tenncrimapp+tennsuperct"
+ElseIf sInputState = "Texas" Then
+     sInputCourt = "txed+txnd+txsd+txwd+txeb+txnb+txsb+txwb+tex+" & _
+        "texapp+texcrimapp+texreview+texjpml+texag+sttex"
+ElseIf sInputState = "Utah" Then
+     sInputCourt = "utd+utb+utah+utahctapp"
+ElseIf sInputState = "Vermont" Then
+     sInputCourt = "vtd+vtb+vt+vtsuperct"
+ElseIf sInputState = "Virginia" Then
+     sInputCourt = "vaed+vawd+vaeb+vawb+va+vactapp"
+ElseIf sInputState = "Washington" Then
+     sInputCourt = "waed+wawd+waeb+wawb+wash+washctapp+washag"
+ElseIf sInputState = "West Virginia" Then
+     sInputCourt = "wvnd+wvsd+wvnb+wvsb+wva"
+ElseIf sInputState = "Wisconsin" Then
+     sInputCourt = "wied+wiwd+wieb+wiwb+wis+wisctapp+wisag"
+ElseIf sInputState = "Wyoming" Then
+     sInputCourt = "wyd+wyb+wyo"
+ElseIf sInputState = "special" Then
+     sInputCourt = "ag+afcca+asbca+armfor+acca+uscfc+tax+mc+mspb+" & _
+        "nmcca+cavc+bva+fiscr+fisc+cit+usjc+jpml+sttex+stp+cc+com+" & _
+        "ccpa+cusc+eca+tecoa+reglrailreorgct+kingsbench"
+ElseIf sInputState = "federal" Then
+     sInputCourt = "scotus+ca1+ca2+ca3+ca4+ca5+ca6+ca7+" & _
+        "ca8+ca9+ca10+ca11+cadc+cafc"
+End If
+If sInput2 = "" Then
+    'only input1
+    sURL = "https://www.courtlistener.com/api/rest/v3/search/" _
+       & "?q=" & sInput1 & "&court=" & sInputCourt & _
+    "&order_by=score+desc&stat_Precedential=on" & "&fields=caseName" '
+Else
+    'with input2
+    'example url in the following comment: 'https://www.courtlistener.com/
+    '?type=o&q=westview&type=o&order_by=score+desc&stat_Precedential=on
+    '&court=waed+wawd+waeb+wawb+wash+washctapp+washag
+     
+    'variable for URL construction
+    sURL = "https://www.courtlistener.com/api/rest/v3/search/" & "?q=" & sInput1 & _
+    "&q=" & sInput2 & "&court=" & sInputCourt & _
+    "&order_by=score+desc&stat_Precedential=on" & "&fields=caseName" '
+End If
+ 
+    With CreateObject("WinHttp.WinHttpRequest.5.1")
+        .Open "GET", sURL, False 'options
+        .setRequestHeader "Accept", "application/json"
+        .setRequestHeader "content-type", "application/x-www-form-urlencoded"
+        .setRequestHeader "Authorization", "Bearer " & sToken
+        .send
+        apiWaxLRS = .responseText
+        sToken = ""
+        .abort
+        Debug.Print apiWaxLRS
+        Debug.Print "--------------------------------------------"
+    End With
+ 
+x = 1
+y = 1
+ 
+Set Parsed = JsonConverter.ParseJson(apiWaxLRS)
+Set sID = Parsed("results")
+ 
+For Each rep In sID
+ 
+        If Not IsNull(rep("citation")) Then
+            Set oCitations = rep("citation")
+            For Each oEntry In oCitations
+ 
+                If oEntry = "null" Or oEntry = "" _
+                Or oEntry = Null Or oEntry = "Null" Then
+                    sCitation = "null"
+                    Debug.Print sCitation
+                ElseIf oEntry <> "" Then
+                    sCitation = oEntry
+                    Debug.Print sCitation
+                Else
+                    Set sCitation = oEntry
+ 
+                    For Each resp In sCitation
+                        sCitation = oEntry
+                        y = x + 1
+                        Debug.Print sCitation
+                    Next
+ 
+                    y = 1
+ 
+                End If
+ 
+            Next
+        Else
+            sCitation = "Null"
+        End If
+ 
+    Debug.Print sCitation
+    sCaseName = rep("caseName")
+    Debug.Print sCaseName
+    sAbsoluteURL = rep("absolute_url")
+    Debug.Print sAbsoluteURL
+    sCourt = rep("court")
+    Debug.Print sCourt
+    x = x + 1
+    Debug.Print "--------------------------------------------"
+    y = 1
+Next
+ 
+End Function
