@@ -1,7 +1,7 @@
 # blogsamples
 This is all code discussed in the blog, sorted by lesson name.
 
-Next up is winhttprequest.
+Next up is winhttprequest and JSON on Monday, using CourtListener as an example.
 
 Basics:
 
@@ -18,6 +18,7 @@ Using VBA/Office with internet:
      References
      Using winhttprequest
      Using VBA with JSON
+     	 CourtListener
          PayPal
          QuickBooks
          Clio
