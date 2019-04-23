@@ -6,6 +6,7 @@ Function fDAORecordsetDemo()
 ' Call command: Call fDAORecordsetDemo
 ' Description : function description, special notes
 '               list here any required arguments 
+'blog post at https://transcription.aquoco.co/2019/04/02/dao-recordsets/
 '============================================================================
  
 Dim rstCrtDts As DAO.Recordset, rstOLPP As DAO.Recordset
