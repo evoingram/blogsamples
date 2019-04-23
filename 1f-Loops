@@ -5,6 +5,7 @@ Function fFunction()
 ' Author      : Erica L Ingram
 ' Call command: Call fFunction
 ' Description : for next loop
+'blog post at https://transcription.aquoco.co/2019/04/07/loops/
 '============================================================================
 Dim x as Integer
 For x = 3 To 0 Step -1
