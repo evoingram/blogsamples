@@ -1,3 +1,4 @@
+'blog post at https://transcription.aquoco.co/2019/03/30/variables/
 Function fHelloWorld()
 Dim sValue as string
 sValue = "Hello, world."
