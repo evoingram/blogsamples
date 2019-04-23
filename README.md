@@ -1,7 +1,7 @@
 # blogsamples
 This is all code discussed in the blog, sorted by lesson name.
 
-Next up is winhttprequest and JSON on Monday, using CourtListener as an example.
+Next up is winhttprequest and JSON, using Wunderlist as an example.
 
 Basics:
 
@@ -15,10 +15,10 @@ Basics:
     
 Using VBA/Office with internet:
 
-     References
-     Using winhttprequest
-     Using VBA with JSON
-     	 CourtListener
+     References (every post in this section)
+     Using winhttprequest (every post in this section)
+     Using VBA with JSON:
+     	 CourtListener (https://transcription.aquoco.co/2019/04/22/part-2-using-winhttprequest/)
          PayPal
          QuickBooks
          Clio
