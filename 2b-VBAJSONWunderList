@@ -1,0 +1,313 @@
+Function fWLGenerateJSONInfo()
+'============================================================================
+' Name        : fWLGenerateJSONInfo
+' Author      : Erica L Ingram
+' Copyright   : 2019, A Quo Co.
+' Call command: Call fWLGenerateJSONInfo
+' Description : store info for WL API (optional function)
+'============================================================================
+'{
+'  "list_id": 12345,
+                    'listname1 = 999999999
+                    'listname2 = 999999999
+                    'listname3 = 999999999
+  
+
+'GET a.wunderlist.com/api/v1/lists/:id
+'PATCH a.wunderlist.com/api/v1/lists/:id
+
+Dim sWLListID As String, lAssigneeID As String
+Dim bCompleted As String, bStarred As String
+
+sWLListID = 999999999 'list name
+lAssigneeID = 99999999 '99999999 erica / 99999999 adam
+bCompleted = "false"
+bStarred = "false"
+
+
+End Function
+Function test()
+Call fWunderlistAdd("test", "2019-04-29")
+End Function
+
+
+Function fWunderlistAdd(sTitle As String, sDueDate As String)
+'============================================================================
+' Name        : fWunderlistAdd
+' Author      : Erica L Ingram
+' Copyright   : 2019, A Quo Co.
+' Call command: Call fWunderlistAdd()
+' Description : adds task to Wunderlist
+'============================================================================
+
+Dim sURL As String, sUserName As String
+Dim apiWaxLRS As String, sURL As String
+Dim sToken As String, sJSON As String
+Dim lAssigneeID As Long, bStarred As String
+Dim bCompleted As String, sWLListID As String
+
+Dim rep, vDetails As Object
+Dim Parsed As Dictionary
+Dim sFile1 As String, sFile3 As String, sLine1 As String, sLine3 As String
+
+sFile1 = "C:\other\3.txt"
+sFile3 = "C:\other\5.txt"
+
+Open sFile1 For Input As #1
+Line Input #1, sLine1
+Close #1
+
+Open sFile3 For Input As #3
+Line Input #3, sLine3
+Close #3
+
+sWLListID = 999999999
+lAssigneeID = 99999999
+sUserName = sLine1
+sToken = sLine3
+bStarred = "false"
+bCompleted = "false"
+
+    sJSON = "{" & Chr(34) & _
+        "list_id" & Chr(34) & ": " & sWLListID & "," & Chr(34) & _
+        "title" & Chr(34) & ": " & Chr(34) & sTitle & Chr(34) & "," & Chr(34) & _
+        "assignee_id" & Chr(34) & ": " & lAssigneeID & "," & Chr(34) & _
+        "completed" & Chr(34) & ": " & bCompleted & "," & Chr(34) & _
+        "due_date" & Chr(34) & ": " & Chr(34) & sDueDate & Chr(34) & "," & Chr(34) & _
+        "starred" & Chr(34) & ": " & bStarred & _
+        "}"
+        
+Debug.Print "sJSON--------------------------------------------"
+Debug.Print sJSON
+Debug.Print "RESPONSETEXT--------------------------------------------"
+    sURL = "https://a.wunderlist.com/api/v1/tasks"
+    With CreateObject("WinHttp.WinHttpRequest.5.1")
+        .Open "POST", sURL, False
+        .setRequestHeader "X-Access-Token", sToken
+        .setRequestHeader "X-Client-ID", sUserName
+        .setRequestHeader "Content-Type", "application/json"
+        .send sJSON
+        apiWaxLRS = .RESPONSETEXT
+        sToken = ""
+        Debug.Print apiWaxLRS
+        Debug.Print "--------------------------------------------"
+        Debug.Print "Status:  " & .Status
+        Debug.Print "--------------------------------------------"
+        Debug.Print "StatusText:  " & .StatusText
+        Debug.Print "--------------------------------------------"
+        Debug.Print "ResponseBody:  " & .responseBody
+        Debug.Print "--------------------------------------------"
+        .abort
+    End With
+Debug.Print "--------------------------------------------"
+Debug.Print "Task Title:  " & sTitle & "   |   List ID:  " & sWLListID & " " & lAssigneeID
+Debug.Print "Completed:  " & bCompleted & "   |   Due Date:  " & sDueDate
+Debug.Print "--------------------------------------------"
+
+End Function
+
+
+
+Function fWunderlistGetTasksOnList()
+'============================================================================
+' Name        : fWunderlistGetTasksOnList
+' Author      : Erica L Ingram
+' Copyright   : 2019, A Quo Co.
+' Call command: Call fWunderlistGetTasksOnList()
+' Description : gets tasks on Wunderlist list
+'============================================================================
+
+Dim sURL As String, sUserName As String, sID As String
+Dim apiWaxLRS As String, sWLListID As String
+Dim sToken As String, json1 As String, sTitle As String
+Dim sFile1 As String, sFile3 As String, sText As String, sLine1 As String, sLine3 As String
+Dim lAssigneeID As String, bCompleted As String, sDueDate As String
+
+Dim rep, vDetails As Object
+
+Dim Parsed As Dictionary
+
+sFile1 = "C:\other\3.txt"
+sFile3 = "C:\other\5.txt"
+
+Open sFile1 For Input As #1
+Line Input #1, sLine1
+Close #1
+
+Open sFile3 For Input As #3
+Line Input #3, sLine3
+Close #3
+
+sUserName = sLine1
+sToken = sLine3
+
+sWLListID = 999999999
+
+json1 = "{" & Chr(34) & "list_id" & Chr(34) & ": " & sWLListID & "}"
+
+Debug.Print "JSON1--------------------------------------------"
+Debug.Print json1
+Debug.Print "RESPONSETEXT--------------------------------------------"
+    sURL = "https://a.wunderlist.com/api/v1/tasks?list_id=" & sWLListID
+    With CreateObject("WinHttp.WinHttpRequest.5.1")
+        '.Visible = True
+        .Open "GET", sURL, False
+        .setRequestHeader "X-Access-Token", sToken
+        .setRequestHeader "X-Client-ID", sUserName
+        .setRequestHeader "Content-Type", "application/json"
+        .send json1
+        apiWaxLRS = .RESPONSETEXT
+        sToken = ""
+        Debug.Print apiWaxLRS
+        Debug.Print "--------------------------------------------"
+        Debug.Print .Status & " " & .StatusText
+        .abort
+    End With
+    
+apiWaxLRS = "{" & Chr(34) & "List" & Chr(34) & ":" & apiWaxLRS & "}"
+'Debug.Print apiWaxLRS
+Set Parsed = JsonConverter.ParseJson(apiWaxLRS)
+Set vDetails = Parsed("List")
+For Each rep In vDetails
+    bCompleted = rep("completed")
+    sID = rep("id")
+    sDueDate = rep("due_date")
+    sTitle = rep("title")
+    lAssigneeID = rep("assignee_id")
+    Debug.Print "--------------------------------------------"
+    Debug.Print "Task Title:  " & sTitle & "   |   List ID:  " & sWLListID & " " & lAssigneeID
+    Debug.Print "Completed:  " & bCompleted & "   |   Due Date:  " & sDueDate
+    Debug.Print "--------------------------------------------"
+Next
+
+End Function
+
+
+
+Function fWunderlistGetLists()
+'============================================================================
+' Name        : fWunderlistGetLists
+' Author      : Erica L Ingram
+' Copyright   : 2019, A Quo Co.
+' Call command: Call fWunderlistGetLists()
+' Description : gets all Wunderlist lists
+'============================================================================
+
+Dim sURL As String, sUserName As String, sID As String
+Dim apiWaxLRS As String, vErrorIssue As String
+Dim sToken As String, sCurrentList As String
+Dim vErrorName As String, vErrorMessage As String, vErrorILink As String
+Dim sFile1 As String, sFile3 As String, sLine1 As String
+Dim sTitle As String, sOwnerID As String
+Dim Parsed As Dictionary
+
+
+sFile1 = "C:\other\3.txt"
+sFile3 = "C:\other\5.txt"
+
+Open sFile1 For Input As #1
+Line Input #1, sLine1
+Close #1
+
+Dim sLine3 As String
+Open sFile3 For Input As #3
+Line Input #3, sLine3
+Close #3
+
+sUserName = sLine1
+sToken = sLine3
+    
+Debug.Print "RESPONSETEXT--------------------------------------------"
+    sURL = "https://a.wunderlist.com/api/v1/lists"
+    With CreateObject("WinHttp.WinHttpRequest.5.1")
+        .Open "GET", sURL, False
+        .setRequestHeader "X-Access-Token", sToken
+        .setRequestHeader "X-Client-ID", sUserName
+        .setRequestHeader "Content-Type", "application/json"
+        .send
+        apiWaxLRS = .RESPONSETEXT
+        sToken = ""
+        .abort
+        Debug.Print apiWaxLRS
+Debug.Print "--------------------------------------------"
+    End With
+    apiWaxLRS = Left(apiWaxLRS, Len(apiWaxLRS) - 1)
+    apiWaxLRS = Right(apiWaxLRS, Len(apiWaxLRS) - 1)
+    Set Parsed = JsonConverter.ParseJson(apiWaxLRS)
+sID = Parsed("id") '("value") 'second level array
+sTitle = Parsed("title") '("value") 'second level array
+sOwnerID = Parsed("owner_id") '("value") 'second level array
+
+Debug.Print "List Name:  " & sTitle & "   |   List ID:  " & sID & " " & sOwnerID
+Debug.Print "--------------------------------------------"
+
+End Function
+
+
+Function fWunderlistGetFolders()
+'============================================================================
+' Name        : fWunderlistGetFolders
+' Author      : Erica L Ingram
+' Copyright   : 2019, A Quo Co.
+' Call command: Call fWunderlistGetFolders()
+' Description : gets list of Wunderlist folders or folder revisions
+'============================================================================
+
+Dim sURL As String, sUserName As String
+Dim apiWaxLRS As String, sRevision As String
+Dim sToken As String, sCurrentList As String
+Dim sFolderID As String, sTitle As String, vErrorILink As String
+Dim sFile1 As String, sFile3 As String, sLine1 As String
+Dim Parsed As Dictionary
+Dim vListIDs, rep
+
+sFile1 = "C:\other\3.txt"
+sFile3 = "C:\other\5.txt"
+
+Open sFile1 For Input As #1
+Line Input #1, sLine1
+Close #1
+
+Dim sLine3 As String
+Open sFile3 For Input As #3
+Line Input #3, sLine3
+Close #3
+
+sUserName = sLine1
+sToken = sLine3
+
+Debug.Print "RESPONSETEXT--------------------------------------------"
+
+sURL = "https://a.wunderlist.com/api/v1/folders"
+'sURL = "https://a.wunderlist.com/api/v1/folder_revisions"
+With CreateObject("WinHttp.WinHttpRequest.5.1")
+    .Open "GET", sURL, False
+    .setRequestHeader "X-Access-Token", sToken
+    .setRequestHeader "X-Client-ID", sUserName
+    .setRequestHeader "Content-Type", "application/json"
+    .send
+    apiWaxLRS = .RESPONSETEXT
+    sToken = ""
+    .abort
+    Debug.Print apiWaxLRS
+    Debug.Print "--------------------------------------------"
+End With
+    apiWaxLRS = Left(apiWaxLRS, Len(apiWaxLRS) - 1)
+    apiWaxLRS = Right(apiWaxLRS, Len(apiWaxLRS) - 1)
+Set Parsed = JsonConverter.ParseJson(apiWaxLRS)
+sFolderID = Parsed("id")
+sTitle = Parsed("title")
+Set vListIDs = Parsed("list_ids")
+For Each rep In vListIDs
+    sCurrentList = rep
+    Debug.Print "List IDs in Folder:  "
+    Debug.Print (sCurrentList)
+Next
+sRevision = Parsed("revision")
+
+Debug.Print "--------------------------------------------"
+Debug.Print "Folder ID:  " & sFolderID & "   |   " & "Folder Title:  " & sTitle
+Debug.Print "Revision No.:  " & sRevision
+Debug.Print "--------------------------------------------"
+
+End Function
