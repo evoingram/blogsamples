@@ -1,7 +1,7 @@
 # blogsamples
 This is all code discussed in the blog, sorted by lesson name.
 
-Next up is winhttprequest and JSON, using Wunderlist as an example.
+Next up is winhttprequest and JSON, using OneNote as an example.
 
 Basics:
 
