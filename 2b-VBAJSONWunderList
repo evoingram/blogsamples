@@ -5,6 +5,8 @@ Function fWLGenerateJSONInfo()
 ' Copyright   : 2019, A Quo Co.
 ' Call command: Call fWLGenerateJSONInfo
 ' Description : store info for WL API (optional function)
+'sample database & blog post at:
+     'https://transcription.aquoco.co/2019/04/29/part-2b-using-vba-with-json-wunderlist/
 '============================================================================
 '{
 '  "list_id": 12345,
