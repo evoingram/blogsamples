@@ -19,7 +19,7 @@ Using VBA/Office with internet:
      Using winhttprequest (every post in this section)
      Using VBA with JSON:
          CourtListener (https://transcription.aquoco.co/2019/04/22/part-2-using-winhttprequest/) 
-         Wunderlist
+         Wunderlist (https://transcription.aquoco.co/2019/04/29/part-2b-using-vba-with-json-wunderlist/)
          OneNote
          PayPal
          QuickBooks
