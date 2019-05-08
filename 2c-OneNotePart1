@@ -142,7 +142,7 @@ Function fONGetSections()
 ' Copyright   : 2019, A Quo Co.
 ' Call command: Call fONGetSections()
 ' Description : get ON sections
-'blog post explanation at https://transcription.aquoco.co/
+'blog post explanation at https://transcription.aquoco.co/2019/05/08/using-vba-with-json-onenote/
 'sample database linked at blog post.
 '============================================================================
 Dim sURL As String, sToken As String, sLine4 As String
@@ -290,7 +290,7 @@ Function fONGetSectionGroups()
 ' Copyright   : 2019, A Quo Co.
 ' Call command: Call fONGetSectionGroups()
 ' Description : get ON section groups
-'blog post explanation at https://transcription.aquoco.co/
+'blog post explanation at https://transcription.aquoco.co/2019/05/08/using-vba-with-json-onenote/
 'sample database linked at blog post.
 '============================================================================
 Dim sURL As String, sToken As String, sLine4 As String
@@ -435,7 +435,7 @@ Function fONGetPages()
 ' Copyright   : 2019, A Quo Co.
 ' Call command: Call fONGetPages()
 ' Description : get ON pages
-'blog post explanation at https://transcription.aquoco.co/
+'blog post explanation at https://transcription.aquoco.co/2019/05/08/using-vba-with-json-onenote/
 'sample database linked at blog post.
 '============================================================================
 Dim sURL As String, sToken As String, sLine4 As String
@@ -572,7 +572,7 @@ Function fONGetPageID(sSearchInTitle As String)
 ' Copyright   : 2019, A Quo Co.
 ' Call command: Call fONGetPageID()
 ' Description : get ON page by searching title
-'blog post explanation at https://transcription.aquoco.co/
+'blog post explanation at https://transcription.aquoco.co/2019/05/08/using-vba-with-json-onenote/
 'sample database linked at blog post.
 '============================================================================
 Dim sURL As String, sToken As String, sLine4 As String
@@ -722,7 +722,7 @@ Function fONCreatePage()
 ' Copyright   : 2019, A Quo Co.
 ' Call command: Call fONCreatePage()
 ' Description : create ON page
-'blog post explanation at https://transcription.aquoco.co/
+'blog post explanation at https://transcription.aquoco.co/2019/05/08/using-vba-with-json-onenote/
 'sample database linked at blog post.
 '============================================================================
 Dim sURL As String, sToken As String, sLine4 As String
