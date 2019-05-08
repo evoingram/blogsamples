@@ -9,7 +9,7 @@ Function fONGetNotebooks()
 ' Call command: Call fONGetNotebooks()
 ' Description : get ON notebooks
 '============================================================================
-'blog post explanation at https://transcription.aquoco.co/
+'blog post explanation at https://transcription.aquoco.co/2019/05/08/using-vba-with-json-onenote/
 'sample database linked at blog post.
 Dim sURL As String, sToken As String, sLine4 As String
 Dim Parsed As Dictionary
