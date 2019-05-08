@@ -63,8 +63,8 @@ Using VBA/Office with internet:
      Automatically Generate Notebooks
      Automatically Generate Section Groups
      Automatically Generate Sections
-     Automatically Generate Pages
-     Return Lists of Notebooks, Section Groups, Sections, and Pages 
+     Automatically Generate Pages (https://transcription.aquoco.co/2019/05/08/using-vba-with-json-onenote/)
+     Return Lists of Notebooks, Section Groups, Sections, and Pages (https://transcription.aquoco.co/2019/05/08/using-vba-with-json-onenote/)
 
  Outlook:
 
