@@ -20,7 +20,7 @@ Using VBA/Office with internet:
      Using VBA with JSON:
          CourtListener (https://transcription.aquoco.co/2019/04/22/part-2-using-winhttprequest/) 
          Wunderlist (https://transcription.aquoco.co/2019/04/29/part-2b-using-vba-with-json-wunderlist/)
-         OneNote
+         OneNote (https://transcription.aquoco.co/2019/05/08/using-vba-with-json-onenote/)
          PayPal
          QuickBooks
          Clio
