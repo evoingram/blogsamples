@@ -1,0 +1,489 @@
+Function fONDeletePage()
+'============================================================================
+' Name        : fONDeletePage
+' Author      : Erica L Ingram
+' Copyright   : 2019, A Quo Co.
+' Call command: Call fONDeletePage()
+' Description : delete ON page by page ID
+'============================================================================
+Dim sURL As String, sToken As String, sLine4 As String
+Dim Parsed As Dictionary
+Dim sFile1 As String, sFile2 As String, sFile3 As String, sFile4 As String
+Dim sLine1 As String, sLine2 As String, sLine3 As String
+Dim apiWaxLRS As String, sGroupID As String
+Dim sCBID As String, sPageID As String, sSiteID As String
+
+'preparing to get token
+sFile1 = "C:\other\6.txt" 'object id / user ID
+sFile2 = "C:\other\7.txt" 'directory tenant id
+sFile3 = "C:\other\8.txt" 'application client id
+sFile4 = "C:\other\9.txt" 'secret
+
+'before auth if you make privilege changes you must visit this website and accept permissions.
+'sState = ""
+'"https://login.microsoftonline.com/" & sLine2 & "adminconsent?client_id=" & sLine3 & "&state=" & sState & "&redirect_uri=https://login.microsoftonline.com/common/oauth2/nativeclient"
+
+Open sFile1 For Input As #1
+Line Input #1, sLine1
+Close #1
+
+Open sFile2 For Input As #2
+Line Input #2, sLine2
+Close #2
+
+Open sFile3 For Input As #3
+Line Input #3, sLine3
+Close #3
+
+Open sFile4 For Input As #4
+Line Input #4, sLine4
+Close #4
+
+sURL = "https://login.microsoftonline.com/" & sLine2 & "/oauth2/v2.0/token"
+
+'getting token
+With CreateObject("WinHttp.WinHttpRequest.5.1")
+    .Open "POST", sURL, False
+    .setRequestHeader "Content-Type", "application/x-www-form-urlencoded"
+    .setRequestHeader "Host", "login.microsoftonline.com"
+    .send ("client_id=" & sLine3 & "&scope=https%3A%2F%2Fgraph.microsoft.com%2F.default&client_secret=" & sLine4 & "&grant_type=client_credentials")
+    .waitForResponse
+    apiWaxLRS = .responseText
+    Debug.Print "--------------------------------------------"
+    .abort
+End With
+
+Set Parsed = JsonConverter.ParseJson(apiWaxLRS)
+sToken = Parsed("access_token")
+
+'fill this in with your page ID
+sPageID = ""
+'sGroupID = ""
+'sSiteID = ""
+        
+'several URL options to choose from for deleting pages:
+'personal account:
+'DELETE https://graph.microsoft.com/v1.0/users/{id | userPrincipalName}/onenote/pages/{id}
+sURL = "https://graph.microsoft.com/v1.0/users/" & sLine1 & "/onenote/pages/" & sPageID
+
+'DELETE https://graph.microsoft.com/v1.0/groups/{id}/onenote/pages/{id}
+'sURL = "https://graph.microsoft.com/v1.0/groups/" & sGroupID & "/onenote/pages/" & sPageID
+
+'DELETE https://graph.microsoft.com/v1.0/sites/{id}/onenote/pages/{id}
+'sURL = "https://graph.microsoft.com/v1.0/sites/" & sSiteID & "/onenote/pages/" & sPageID
+
+'call on URL to delete page
+With CreateObject("WinHttp.WinHttpRequest.5.1")
+    .Open "DELETE", sURL, False
+    .setRequestHeader "Authorization", "Bearer " & sToken
+    .setRequestHeader "Content-Type", "text/html"
+    .send
+    apiWaxLRS = .responseText
+    If apiWaxLRS = "" Then
+        apiWaxLRS = .status
+    End If
+    sToken = ""
+    sFile2 = ""
+    sFile3 = ""
+    sFile4 = ""
+    sURL = ""
+    sLine1 = ""
+    sLine2 = ""
+    sLine3 = ""
+    sLine4 = ""
+    'Debug.Print apiWaxLRS
+    'Debug.Print "--------------------------------------------"
+    .abort
+End With
+
+'print status on successful delete
+Debug.Print "Page Deleted, ID No.:  " & sPageID
+Debug.Print "Status: " & apiWaxLRS & "   |   (204 means deleted successfully)"
+Debug.Print "--------------------------------------------"
+
+End Function
+
+
+
+Function fONUpdatePage()
+'============================================================================
+' Name        : fONUpdatePage
+' Author      : Erica L Ingram
+' Copyright   : 2019, A Quo Co.
+' Call command: Call fONUpdatePage()
+' Description : update ON page by page ID
+'============================================================================
+Dim sURL As String, sToken As String, sLine4 As String
+Dim Parsed As Dictionary
+Dim sFile1 As String, sFile2 As String, sFile3 As String, sFile4 As String
+Dim sLine1 As String, sLine2 As String, sLine3 As String
+Dim apiWaxLRS As String, sGroupID As String
+Dim sCBID As String, sPageID As String, sSiteID As String
+Dim sUpdateJSON As String
+'preparing to get token
+sFile1 = "C:\other\6.txt" 'object id / user ID
+sFile2 = "C:\other\7.txt" 'directory tenant id
+sFile3 = "C:\other\8.txt" 'application client id
+sFile4 = "C:\other\9.txt" 'secret
+
+'before auth if you make privilege changes you must visit this website and accept permissions.
+'sState = ""
+'"https://login.microsoftonline.com/" & sLine2 & "adminconsent?client_id=" & sLine3 & "&state=" & sState & "&redirect_uri=https://login.microsoftonline.com/common/oauth2/nativeclient"
+
+Open sFile1 For Input As #1
+Line Input #1, sLine1
+Close #1
+
+Open sFile2 For Input As #2
+Line Input #2, sLine2
+Close #2
+
+Open sFile3 For Input As #3
+Line Input #3, sLine3
+Close #3
+
+Open sFile4 For Input As #4
+Line Input #4, sLine4
+Close #4
+
+sURL = "https://login.microsoftonline.com/" & sLine2 & "/oauth2/v2.0/token"
+
+'getting token
+With CreateObject("WinHttp.WinHttpRequest.5.1")
+    .Open "POST", sURL, False
+    .setRequestHeader "Content-Type", "application/x-www-form-urlencoded"
+    .setRequestHeader "Host", "login.microsoftonline.com"
+    .send ("client_id=" & sLine3 & "&scope=https%3A%2F%2Fgraph.microsoft.com%2F.default&client_secret=" & sLine4 & "&grant_type=client_credentials")
+    .waitForResponse
+    apiWaxLRS = .responseText
+    Debug.Print "--------------------------------------------"
+    .abort
+End With
+
+Set Parsed = JsonConverter.ParseJson(apiWaxLRS)
+sToken = Parsed("access_token")
+
+'fill this in with your page ID
+sPageID = ""
+'sGroupID = ""
+'sSiteID = ""
+        
+'several URL options to choose from for updating pages:
+'personal account:
+'PATCH https://graph.microsoft.com/v1.0/users/{id | userPrincipalName}/onenote/pages/{id}/content
+sURL = "https://graph.microsoft.com/v1.0/users/" & sLine1 & "/onenote/pages/" & sPageID & "/content"
+
+'PATCH https://graph.microsoft.com/v1.0/groups/{id}/onenote/pages/{id}/content
+'sURL = "https://graph.microsoft.com/v1.0/groups/" & sGroupID & "/onenote/pages/" & sPageID & "/content"
+
+'PATCH https://graph.microsoft.com/v1.0/sites/{id}/onenote/pages/{id}/content
+'sURL = "https://graph.microsoft.com/v1.0/sites/" & sSiteID & "/onenote/pages/" & sPageID & "/content"
+
+
+
+'update request follows json format:
+sUpdateJSON = "[{" & _
+    "'target':'#para-id'," & _
+    "'action':'insert'," & _
+    "'position':'before'," & _
+    "'content':'<img src=" & Chr(34) & "image-url-or-part-name" & Chr(34) & "alt=" & Chr(34) & "image-alt-text" & Chr(34) & " />'" & _
+  "},{" & _
+    "'target':'#list-id'," & _
+    "'action':'append'," & _
+    "'content':'<li>new-page-content</li>'" & _
+  "}]"
+  
+
+'call on URL to delete page
+With CreateObject("WinHttp.WinHttpRequest.5.1")
+    .Open "PATCH", sURL, False
+    .setRequestHeader "Authorization", "Bearer " & sToken
+    .setRequestHeader "Content-Type", "application/json"
+    .send sUpdateJSON
+    apiWaxLRS = .responseText
+    If apiWaxLRS = "" Then
+        apiWaxLRS = .status
+    End If
+    sToken = ""
+    sFile2 = ""
+    sFile3 = ""
+    sFile4 = ""
+    sURL = ""
+    sLine1 = ""
+    sLine2 = ""
+    sLine3 = ""
+    sLine4 = ""
+    'Debug.Print apiWaxLRS
+    'Debug.Print "--------------------------------------------"
+    .abort
+End With
+
+
+
+'print status on successful update
+Debug.Print "Page Updated, ID No.:  " & sPageID
+Debug.Print "Status: " & apiWaxLRS & "   |   (204 means updated successfully)"
+Debug.Print "--------------------------------------------"
+
+
+
+End Function
+
+
+Function fONCopyPageToSection()
+'============================================================================
+' Name        : fONCopyPageToSection
+' Author      : Erica L Ingram
+' Copyright   : 2019, A Quo Co.
+' Call command: Call fONCopyPageToSection()
+' Description : copy ON page by page ID to section
+'============================================================================
+Dim sURL As String, sToken As String, sLine4 As String
+Dim Parsed As Dictionary
+Dim sFile1 As String, sFile2 As String, sFile3 As String, sFile4 As String
+Dim sLine1 As String, sLine2 As String, sLine3 As String
+Dim apiWaxLRS As String, sGroupID As String
+Dim sCBID As String, sPageID As String, sSiteID As String
+Dim sCopyJSON As String, sSectionID As String
+'preparing to get token
+sFile1 = "C:\other\6.txt" 'object id / user ID
+sFile2 = "C:\other\7.txt" 'directory tenant id
+sFile3 = "C:\other\8.txt" 'application client id
+sFile4 = "C:\other\9.txt" 'secret
+
+'before auth if you make privilege changes you must visit this website and accept permissions.
+'sState = ""
+'"https://login.microsoftonline.com/" & sLine2 & "adminconsent?client_id=" & sLine3 & "&state=" & sState & "&redirect_uri=https://login.microsoftonline.com/common/oauth2/nativeclient"
+
+Open sFile1 For Input As #1
+Line Input #1, sLine1
+Close #1
+
+Open sFile2 For Input As #2
+Line Input #2, sLine2
+Close #2
+
+Open sFile3 For Input As #3
+Line Input #3, sLine3
+Close #3
+
+Open sFile4 For Input As #4
+Line Input #4, sLine4
+Close #4
+
+sURL = "https://login.microsoftonline.com/" & sLine2 & "/oauth2/v2.0/token"
+
+'getting token
+With CreateObject("WinHttp.WinHttpRequest.5.1")
+    .Open "POST", sURL, False
+    .setRequestHeader "Content-Type", "application/x-www-form-urlencoded"
+    .setRequestHeader "Host", "login.microsoftonline.com"
+    .send ("client_id=" & sLine3 & "&scope=https%3A%2F%2Fgraph.microsoft.com%2F.default&client_secret=" & sLine4 & "&grant_type=client_credentials")
+    .waitForResponse
+    apiWaxLRS = .responseText
+    Debug.Print "--------------------------------------------"
+    .abort
+End With
+
+Set Parsed = JsonConverter.ParseJson(apiWaxLRS)
+sToken = Parsed("access_token")
+
+
+'fill this in with your page ID & desired section ID to copy to
+sPageID = ""
+sSectionID = ""
+'sGroupID = ""
+
+'several URL options to choose from for copying pages:
+
+'personal account:
+'POST https://graph.microsoft.com/v1.0/users/{id | userPrincipalName}/onenote/pages/{id}/copyToSection
+sURL = "https://graph.microsoft.com/v1.0/users/" & sLine1 & "/onenote/pages/" & sPageID & "/copyToSection"
+
+'POST https://graph.microsoft.com/v1.0/groups/{id}/onenote/pages/{id}/copyToSection
+'sURL = "https://graph.microsoft.com/v1.0/groups/" & sGroupID & "/onenote/pages/" & sPageID & "/copyToSection"
+
+'POST https://graph.microsoft.com/v1.0/me/onenote/pages/{id}/copyToSection
+'sURL = "https://graph.microsoft.com/v1.0/me/onenote/pages/" & sPageID & "/copyToSection"
+
+'Here, we're constructing the JSON string we need to send so Microsoft knows which page to copy and to which section to copy.
+sCopyJSON = "{" & _
+  Chr(34) & "id" & Chr(34) & ": " & Chr(34) & sPageID & Chr(34) & "," & _
+  Chr(34) & "groupId" & Chr(34) & ": " & Chr(34) & sSectionID & Chr(34) & _
+    "}"
+
+
+'call on URL to copy page to desired section
+With CreateObject("WinHttp.WinHttpRequest.5.1")
+    .Open "POST", sURL, False
+    .setRequestHeader "Authorization", "Bearer " & sToken
+    .setRequestHeader "Content-Type", "application/json"
+    .setRequestHeader "Content-Length", "52"
+    .send sCopyJSON
+    apiWaxLRS = .responseText
+    If apiWaxLRS = "" Then
+        apiWaxLRS = .status
+    End If
+    sToken = ""
+    sFile2 = ""
+    sFile3 = ""
+    sFile4 = ""
+    sURL = ""
+    sLine1 = ""
+    sLine2 = ""
+    sLine3 = ""
+    sLine4 = ""
+    'Debug.Print apiWaxLRS
+    'Debug.Print "--------------------------------------------"
+    .abort
+End With
+
+
+'print status on successful update
+Debug.Print "Page ID No.:  " & sPageID & "   |   Section ID No.:  " & sSectionID
+Debug.Print "Status: " & apiWaxLRS & "   |   (202 means updated successfully)"
+Debug.Print "--------------------------------------------"
+
+End Function
+
+
+Function fONCreateSection()
+'============================================================================
+' Name        : fONCreateSection
+' Author      : Erica L Ingram
+' Copyright   : 2019, A Quo Co.
+' Call command: Call fONCreateSection()
+' Description : create ON section
+'============================================================================
+Dim sURL As String, sToken As String, sLine4 As String
+Dim Parsed As Dictionary
+Dim sFile1 As String, sFile2 As String, sFile3 As String, sFile4 As String
+Dim sLine1 As String, sLine2 As String, sLine3 As String
+Dim sResponseText As String, apiWaxLRS As String
+Dim sONID As String, sSelfLink As String, sCreatedDateTime As String
+Dim sDisplayName As String, sLastModifiedDateTime As String, isDefault As String
+Dim sUserRole As String, sIsShared As String, sSectionsUrl As String, sSectionGroupsUrl As String
+Dim sCBDisplayName As String, sCBLastModifiedName As String
+Dim sCBLWebURL As String, sIsDefault As String
+Dim sCBID As String
+Dim rep
+Dim sCBLastModifiedID As String, sCBLClientURL As String
+Dim sJSONRequest As String, sNotebookID As String
+
+sFile1 = "C:\other\6.txt" 'object id / user ID
+sFile2 = "C:\other\7.txt" 'directory tenant id
+sFile3 = "C:\other\8.txt" 'application client id
+sFile4 = "C:\other\9.txt" 'secret
+
+'before auth if you make privilege changes you must visit this website and accept permissions.
+'sState = ""
+'"https://login.microsoftonline.com/" & sLine2 & "adminconsent?client_id=" & sLine3 & "&state=" & sState & "&redirect_uri=https://login.microsoftonline.com/common/oauth2/nativeclient"
+
+Open sFile1 For Input As #1
+Line Input #1, sLine1
+Close #1
+
+Open sFile2 For Input As #2
+Line Input #2, sLine2
+Close #2
+
+Open sFile3 For Input As #3
+Line Input #3, sLine3
+Close #3
+
+Open sFile4 For Input As #4
+Line Input #4, sLine4
+Close #4
+
+sURL = "https://login.microsoftonline.com/" & sLine2 & "/oauth2/v2.0/token"
+
+With CreateObject("WinHttp.WinHttpRequest.5.1")
+    .Open "POST", sURL, False
+    .setRequestHeader "Content-Type", "application/x-www-form-urlencoded"
+    .setRequestHeader "Host", "login.microsoftonline.com"
+    .send ("client_id=" & sLine3 & "&scope=https%3A%2F%2Fgraph.microsoft.com%2F.default&client_secret=" & sLine4 & "&grant_type=client_credentials")
+    .waitForResponse
+    apiWaxLRS = .responseText
+    Debug.Print "--------------------------------------------"
+    .abort
+End With
+
+Set Parsed = JsonConverter.ParseJson(apiWaxLRS)
+sToken = Parsed("access_token")
+
+'notebook id where you want your new section to go
+sNotebookID = ""
+'set new section name here
+sSectionName = "Testing VBA New Section 1"
+'sGroupID = ""
+
+'POST https://graph.microsoft.com/v1.0/users/{id | userPrincipalName}/onenote/notebooks/{id}/sections
+sURL = "https://graph.microsoft.com/v1.0/users/" & sLine1 & "/onenote/notebooks/" & sNotebookID & "/sections"
+
+'POST https://graph.microsoft.com/v1.0/groups/{id}/onenote/notebooks/{id}/sections
+'sURL = "https://graph.microsoft.com/v1.0/groups/" & sGroupID & "/onenote/notebooks/" & sNotebookID & "/sections"
+
+'POST https://graph.microsoft.com/v1.0/sites/{id}/onenote/notebooks/{id}/sections
+'sURL = "https://graph.microsoft.com/v1.0/sites/" & sGroupID & "/onenote/notebooks/" & sNotebookID & "/sections"
+
+'POST https://graph.microsoft.com/v1.0/me/onenote/notebooks/{id}/sections
+'sURL = "https://graph.microsoft.com/v1.0/me/onenote/notebooks/" & sNotebookID & "/sections"
+
+sJSONRequest = "{" & Chr(34) & "displayName" & Chr(34) & ": " & Chr(34) & sSectionName & Chr(34) & "}"
+
+With CreateObject("WinHttp.WinHttpRequest.5.1")
+    .Open "POST", sURL, False
+    .setRequestHeader "Authorization", "Bearer " & sToken
+    .setRequestHeader "Content-type", "application/json"
+    .setRequestHeader "Content-length", "27"
+    .send sJSONRequest
+    apiWaxLRS = .responseText
+    sToken = ""
+    sFile2 = ""
+    sFile3 = ""
+    sFile4 = ""
+    sURL = ""
+    sLine1 = ""
+    sLine2 = ""
+    sLine3 = ""
+    sLine4 = ""
+    Debug.Print apiWaxLRS
+    Debug.Print "--------------------------------------------"
+    .abort
+End With
+
+Set Parsed = JsonConverter.ParseJson(apiWaxLRS)
+
+sIsShared = Parsed("@odata.context")
+sONID = Parsed("id")
+sSelfLink = Parsed("self")
+
+sCreatedDateTime = Parsed("createdDateTime")
+sTitle = Parsed("displayName")
+scontentUrl = Parsed("pagesUrl")
+sLastModifiedDateTime = Parsed("lastModifiedDateTime")
+Set rep1 = Parsed("links")
+Set rep2 = rep1("oneNoteClientUrl")
+sCBLClientURL = rep2("href")
+Set rep3 = rep1("oneNoteWebUrl")
+sCBLWebURL = rep3("href")
+    
+Debug.Print "sIsShared = " & sIsShared
+Debug.Print "sONID = " & sONID
+Debug.Print "sTitle = " & sTitle
+Debug.Print "scontentUrl = " & scontentUrl
+Debug.Print "sSelfLink = " & sSelfLink
+Debug.Print "sCreatedDateTime = " & sCreatedDateTime
+Debug.Print "sLastModifiedDateTime = " & sLastModifiedDateTime
+Debug.Print "sCBLClientURL = " & sCBLClientURL
+Debug.Print "sCBLWebURL = " & sCBLWebURL
+Debug.Print "--------------------------------------------"
+
+
+'print status on successful section create
+Debug.Print "Section ID No.:  " & sONID & "   |   Section Name:  " & sSectionName
+Debug.Print "Status: " & apiWaxLRS
+Debug.Print "201 updated successfully"
+Debug.Print "--------------------------------------------"
+
+End Function
